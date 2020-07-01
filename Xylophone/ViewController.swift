@@ -18,12 +18,21 @@ class ViewController: UIViewController {
     }
     
     @IBAction func keyPressed(_ sender: UIButton) {
+        //set opacity to 0.5 on press
+        sender.alpha = 0.5
+        
+        //delay code 0.2 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            //Bring's sender's opacity back up to fully opaque.
+            sender.alpha = 1.0
+        }
+        
         //print(sender.currentTitle!)
-        playSound(note:sender.currentTitle!)
+        playSound(soundName:sender.currentTitle!)
     }
     
-    func playSound(note: String) {
-        let url = Bundle.main.url(forResource: note, withExtension: "wav")
+    func playSound(soundName: String) {
+        let url = Bundle.main.url(forResource: soundName, withExtension: "wav")
         player = try! AVAudioPlayer(contentsOf: url!)
         player.play()
     }
